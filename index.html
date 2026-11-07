@@ -3,1432 +3,208 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NuruxData — Système de Gestion Scolaire Intelligente</title>
-<meta name="description" content="NuruxData : la plateforme de gestion scolaire tout-en-un. Dossiers élèves, paiements, bulletins, portail parents. Simple, sécurisée, hors ligne.">
-<meta name="theme-color" content="#070a12">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="NuruxData — Pilotez votre école avec haute précision">
-<meta property="og:description" content="Dossiers élèves, paiements, bulletins, portail parents. La plateforme scolaire nouvelle génération.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
+<title>NuruxData — Solution de gestion scolaire</title>
+<meta name="description" content="NuruxData : solution de gestion scolaire pour établissements préscolaires, primaires, collèges et lycées.">
+<meta name="theme-color" content="#0f1f3d">
+<meta property="og:title" content="NuruxData — Solution de gestion scolaire">
+<meta property="og:image" content="img/tableau-de-bord.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23070a12'/%3E%3Ctext x='50' y='68' text-anchor='middle' font-size='58' font-family='sans-serif' font-weight='800' fill='%23a855f7'%3EN%3C/text%3E%3C/svg%3E">
-
-<!-- Firebase SDK (utilisé par la modale d'abonnement) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDHhebxPc3Ixz_UbH83LHdm-hoFNQhIhyQ",
-    authDomain: "nuruxdata.firebaseapp.com",
-    projectId: "nuruxdata",
-    storageBucket: "nuruxdata.firebasestorage.app",
-    messagingSenderId: "85747886995",
-    appId: "1:85747886995:web:4d9e9e56710cfb29e51666"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  window.db = db;
-  window.addDoc = addDoc;
-  window.collection = collection;
-  window.serverTimestamp = serverTimestamp;
-</script>
-
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23c99a2e'/%3E%3Ctext x='50' y='70' text-anchor='middle' font-size='60' font-family='sans-serif' font-weight='800' fill='%230f1f3d'%3EN%3C/text%3E%3C/svg%3E">
 <style>
-:root{
-  --ink:#070a12;
-  --ink2:#0d1322;
-  --panel:#0d1322;
-  --panel-hover:#131b2e;
-  --green:#10b981;
-  --green-l:#34d399;
-  --cyan:#38bdf8;
-  --purple:#a855f7;
-  --purple-d:#7e22ce;
-  --gold:#d97706;
-  --gold-l:#f59e0b;
-  --white:#ffffff;
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --muted-2:#64748b;
-  --line:rgba(255,255,255,.08);
-  --line-strong:rgba(255,255,255,.15);
-  --shadow-sm:0 2px 8px rgba(0,0,0,.3);
-  --shadow-md:0 12px 32px rgba(0,0,0,.4);
-  --shadow-lg:0 24px 60px rgba(0,0,0,.55);
-  --shadow-purple:0 8px 30px rgba(168,85,247,.35);
-  --shadow-green:0 8px 30px rgba(16,185,129,.35);
-  --lp-bg:#ffffff;
-  --lp-bg-2:#f8fafc;
-  --lp-line:#e2e8f0;
-  --lp-line-2:#cbd5e1;
-  --lp-text:#0f172a;
-  --lp-muted:#64748b;
-}
+:root{--navy:#0f1f3d;--navy2:#162b52;--gold:#c99a2e;--gold-l:#e3b94f;--cream:#f5f3ee;--text:#1b2a47;--muted:#6b7488;--line:#e2ded4}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'DM Sans',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img,.img{display:block}
-.img{background-size:cover;background-position:center;background-color:var(--ink2)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;color:var(--text);background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:3px solid var(--purple);outline-offset:3px;border-radius:2px}
-h1,h2,h3,h4{font-family:'DM Sans',system-ui,sans-serif;color:var(--text);line-height:1.15;font-weight:700;letter-spacing:-.6px}
-h2{font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:1rem}
-h3{font-size:1.3rem;margin-bottom:.5rem;font-weight:700;letter-spacing:-.3px}
-.wrap{max-width:1200px;margin:auto;padding:0 28px}
-section{padding:120px 0;position:relative}
-.lead{max-width:660px;color:var(--muted);font-size:1.06rem;line-height:1.75}
-.eyebrow{display:inline-block;color:var(--purple);font-weight:700;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
-.eyebrow.gold{color:var(--gold-l)}
-
-.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:12px;font-weight:700;font-size:.95rem;transition:all .3s cubic-bezier(.2,.8,.2,1);border:1.5px solid transparent;cursor:pointer;font-family:inherit;letter-spacing:.2px}
-.btn.purple{background:linear-gradient(135deg,#a855f7 0%,#7e22ce 100%);color:#fff;box-shadow:var(--shadow-purple)}
-.btn.purple:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(168,85,247,.55)}
-.btn.green{background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#fff;box-shadow:var(--shadow-green)}
-.btn.green:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(16,185,129,.5)}
-.btn.gold{background:linear-gradient(135deg,#d97706 0%,#f59e0b 100%);color:#0f172a;box-shadow:0 8px 30px rgba(217,119,6,.35)}
-.btn.gold:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(217,119,6,.5)}
-.btn.line{border-color:var(--line-strong);color:#fff;background:rgba(255,255,255,.04);backdrop-filter:blur(8px)}
-.btn.line:hover{background:rgba(255,255,255,.1);border-color:#fff}
-.btn.ghost{border-color:var(--line-strong);color:var(--text);background:transparent}
-.btn.ghost:hover{border-color:var(--purple);color:var(--purple)}
-
-/* ---------- HEADER ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:100;transition:all .4s cubic-bezier(.2,.8,.2,1);color:#fff;padding:0}
-header.solid{background:rgba(7,10,18,.85);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);box-shadow:0 4px 30px rgba(0,0,0,.4);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;justify-content:space-between;height:92px;transition:height .3s}
-header.solid .bar{height:78px}
-.logo{display:flex;align-items:center;gap:14px;font-size:1.15rem;font-weight:700;letter-spacing:-.3px;line-height:1.1}
-.logo .mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#10b981 0%,#a855f7 100%);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.2rem;box-shadow:0 6px 22px rgba(168,85,247,.4);flex-shrink:0}
-.logo small{display:block;font-size:.62rem;font-weight:600;opacity:.75;letter-spacing:1.6px;text-transform:uppercase;line-height:1.2;margin-top:2px;color:#a855f7}
-nav ul{display:flex;gap:34px;list-style:none;font-size:.9rem;font-weight:600}
-nav a{opacity:.8;padding:8px 0;border-bottom:2px solid transparent;transition:.25s;position:relative}
-nav a:hover{opacity:1;border-color:var(--purple);color:#fff}
-.burger{display:none;background:none;border:0;color:#fff;font-size:1.7rem;cursor:pointer;padding:8px}
-.btn-header{padding:11px 22px;font-size:.85rem}
-
-/* ---------- HERO ---------- */
-.hero{position:relative;height:100vh;min-height:680px;overflow:hidden;background:var(--ink);color:#fff;padding:0}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.8s cubic-bezier(.45,0,.2,1);z-index:1;will-change:opacity}
-.slide.on{opacity:1;z-index:2}
-.slide .bg{position:absolute;inset:0;transform:scale(1);transition:transform 0s 1.9s;background-size:cover;background-position:center}
-.slide.on .bg{transform:scale(1.08);transition:transform 9s cubic-bezier(.2,.6,.3,1)}
-.slide::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(95deg,rgba(7,10,18,.95) 0%,rgba(7,10,18,.7) 45%,rgba(7,10,18,.15) 100%),
-  linear-gradient(0deg,rgba(7,10,18,.7),transparent 40%)}
-.cap{position:absolute;z-index:3;left:max(28px,calc((100vw - 1200px)/2 + 28px));right:28px;bottom:22vh;max-width:760px}
-.cap>*{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
-.slide.on .cap>*{opacity:1;transform:none}
-.slide.on .cap>:nth-child(1){transition-delay:.6s}
-.slide.on .cap>:nth-child(2){transition-delay:.85s}
-.slide.on .cap>:nth-child(3){transition-delay:1.1s}
-.slide.on .cap>:nth-child(4){transition-delay:1.35s}
-.cap .tag{display:inline-flex;align-items:center;gap:8px;background:rgba(168,85,247,.15);color:#c084fc;border:1px solid rgba(168,85,247,.45);padding:8px 18px;border-radius:40px;font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:26px;backdrop-filter:blur(8px)}
-.cap .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#a855f7;box-shadow:0 0 10px #a855f7}
-.cap h1{color:#fff;font-size:clamp(2.2rem,5.5vw,4.6rem);margin-bottom:22px;line-height:1.02;letter-spacing:-1.5px;font-weight:800}
-.cap p{font-size:clamp(1rem,1.3vw,1.18rem);opacity:.9;margin-bottom:36px;max-width:580px;line-height:1.65}
-.cap .btn+.btn{margin-left:12px}
-
-.ctrl{position:absolute;z-index:5;left:0;right:0;bottom:48px}
-.ctrl .wrap{display:flex;align-items:center;justify-content:space-between}
-.dots{display:flex;gap:10px}
-.dots button{width:48px;height:3px;border:0;background:rgba(255,255,255,.3);position:relative;overflow:hidden;cursor:pointer;border-radius:2px;transition:.3s}
-.dots button:hover{background:rgba(255,255,255,.5)}
-.dots button.on::after{content:"";position:absolute;inset:0;background:var(--purple);transform-origin:left;animation:fill var(--d,7s) linear forwards}
-@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.arrows{display:flex;gap:10px}
-.arrows button{width:50px;height:50px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.06);color:#fff;font-size:1.2rem;cursor:pointer;transition:.3s;backdrop-filter:blur(10px);display:grid;place-items:center;line-height:1}
-.arrows button:hover{background:var(--purple);border-color:var(--purple);color:#fff;transform:scale(1.08);box-shadow:var(--shadow-purple)}
-
-.scroll-hint{position:absolute;bottom:120px;right:max(28px,calc((100vw - 1200px)/2 + 28px));z-index:4;display:flex;flex-direction:column;align-items:center;gap:10px;color:#fff;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;opacity:.7}
-.scroll-hint span{writing-mode:vertical-rl}
-.scroll-hint::after{content:"";width:1px;height:60px;background:linear-gradient(to bottom,#fff,transparent);animation:scrollLine 2.2s ease-in-out infinite}
-@keyframes scrollLine{0%,100%{transform:scaleY(.3);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
-
-/* ---------- PARTENAIRES ---------- */
-.partners{background:var(--ink2);padding:44px 0;border-bottom:1px solid var(--line);overflow:hidden}
-.partners p{text-align:center;font-size:.78rem;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-bottom:26px}
-.partners-track{display:flex;gap:60px;align-items:center;justify-content:center;flex-wrap:wrap}
-.partner{font-size:1.05rem;font-weight:800;color:var(--muted-2);letter-spacing:-.3px;transition:.3s;white-space:nowrap}
-.partner:hover{color:var(--text)}
-
-/* ---------- CHIFFRES ---------- */
-.stats{background:linear-gradient(120deg,#070a12 0%,#0d1322 60%,#1a0d2e 100%);color:#fff;padding:80px 0;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.stats::before{content:"";position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(168,85,247,.15) 0%,transparent 70%);pointer-events:none}
-.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;position:relative;z-index:2}
-.stats b{display:block;font-size:3.2rem;color:var(--purple);line-height:1;font-weight:800;letter-spacing:-2px;margin-bottom:10px}
-.stats span{font-size:.9rem;opacity:.85;display:block;line-height:1.5;color:#cbd5e1}
-
-/* ---------- À PROPOS ---------- */
-.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
-.about .pic{position:relative}
-.about .pic .img{height:600px;border-radius:20px;box-shadow:var(--shadow-lg)}
-.about .pic::before{content:"";position:absolute;inset:32px -32px -32px 32px;border:2px solid var(--purple);z-index:-1;border-radius:20px;opacity:.4}
-.about p{margin-bottom:20px;line-height:1.8;color:var(--muted)}
-.about p strong{color:var(--text);font-weight:600}
-.vals{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0 40px}
-.vals div{border-left:3px solid var(--green);padding-left:18px}
-.vals b{color:var(--text);display:block;font-weight:700;margin-bottom:4px;font-size:.98rem}
-.vals span{font-size:.88rem;color:var(--muted);line-height:1.5}
-
-/* ---------- SECTIONS / SECTEURS ---------- */
-.sectors{background:var(--ink2)}
-.head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:60px;flex-wrap:wrap}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.card{background:var(--panel);overflow:hidden;transition:.45s cubic-bezier(.2,.8,.2,1);border-radius:20px;box-shadow:var(--shadow-sm);position:relative;border:1px solid var(--line)}
-.card:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
-.card .img{height:240px;transition:transform 1s cubic-bezier(.2,.8,.2,1);overflow:hidden;position:relative}
-.card:hover .img{transform:scale(1.08)}
-.card .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(7,10,18,.7));pointer-events:none}
-.card .in{padding:30px 28px 32px}
-.card .tag{display:inline-block;color:#c084fc;font-weight:700;font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
-.card .tag.green{color:var(--green-l)}
-.card .tag.gold{color:var(--gold-l)}
-.card h3{color:var(--text)}
-.card p{font-size:.94rem;color:var(--muted);line-height:1.65}
-
-/* ---------- PROJETS / OFFRES ---------- */
-.projects .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
-.proj-list{display:grid;gap:16px}
-.proj{display:flex;gap:22px;padding:28px;background:var(--panel);border:1px solid var(--line);border-radius:16px;transition:.35s cubic-bezier(.2,.8,.2,1)}
-.proj:hover{border-color:var(--purple);box-shadow:var(--shadow-md);transform:translateX(8px)!important}
-.proj .num{flex-shrink:0;width:52px;height:52px;border-radius:50%;background:rgba(168,85,247,.12);color:var(--purple);display:grid;place-items:center;font-weight:800;font-size:1rem;transition:.35s;letter-spacing:0}
-.proj:hover .num{background:var(--purple);color:#fff;box-shadow:var(--shadow-purple)}
-.proj b{display:block;color:var(--text);font-size:1.02rem;margin-bottom:6px;font-weight:700;line-height:1.35}
-.proj span{font-size:.9rem;color:var(--muted);line-height:1.6}
-
-/* ---------- OBJECTIF / PROMESSE ---------- */
-.goal{background:linear-gradient(120deg,#070a12 0%,#0d1322 60%,#1a0d2e 100%);color:#fff;padding:120px 0;position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.goal::before{content:"";position:absolute;top:-300px;right:-300px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.18) 0%,transparent 65%);pointer-events:none}
-.goal::after{content:"";position:absolute;bottom:-200px;left:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.15) 0%,transparent 70%);pointer-events:none}
-.goal .wrap{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center;position:relative;z-index:2}
-.goal h2{color:#fff}
-.goal p{color:#cbd5e1;font-size:1.05rem;margin-bottom:20px;line-height:1.75}
-.goal ul{list-style:none;margin-top:28px}
-.goal li{padding:14px 0;padding-left:36px;position:relative;color:#e2e8f0;border-bottom:1px solid var(--line);font-size:.98rem}
-.goal li:last-child{border-bottom:0}
-.goal li::before{content:"✓";position:absolute;left:0;top:14px;width:22px;height:22px;background:var(--purple);color:#fff;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.75rem}
-.goal .big-wrap{text-align:center}
-.goal .big{font-size:clamp(4.5rem,11vw,8rem);font-weight:800;color:var(--purple);line-height:.85;letter-spacing:-6px;display:block;text-shadow:0 0 60px rgba(168,85,247,.5)}
-.goal .big small{font-size:.28em;display:block;color:#fff;letter-spacing:0;font-weight:500;margin-top:24px;line-height:1.45}
-.goal .progress{margin-top:40px;background:rgba(255,255,255,.08);border-radius:40px;height:8px;overflow:hidden;position:relative}
-.goal .progress::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,var(--purple),#c084fc);border-radius:40px;box-shadow:0 0 20px rgba(168,85,247,.6)}
-
-/* ---------- PORTAIL PARENTS (LIGHT) ---------- */
-.parents-section{background:var(--ink2)}
-.parent-portal-box-white{
-  padding:40px;border-radius:24px;
-  background:#ffffff;color:#0f172a;
-  box-shadow:0 20px 40px -15px rgba(168,85,247,.15), 0 0 0 1px rgba(255,255,255,.05);
-}
-.portal-header{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
-.portal-text{flex:1;min-width:300px}
-.portal-text h3{font-size:1.8rem;font-weight:800;margin:0 0 12px;color:#0f172a}
-.portal-text p{color:#475569;font-size:.95rem;line-height:1.6;margin-bottom:20px}
-.badge-tag-light{display:inline-flex;align-items:center;gap:8px;background:#f3e8ff;color:#7e22ce;border:1px solid #e9d5ff;font-size:.78rem;font-weight:700;padding:6px 16px;border-radius:30px;margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase}
-.search-box-white{display:flex;gap:10px;background:#f1f5f9;padding:8px;border-radius:14px;border:1px solid #cbd5e1;max-width:480px;width:100%}
-.search-box-white input{background:transparent;border:none;color:#0f172a;padding:10px 14px;flex:1;font-size:.9rem;font-family:inherit;outline:none;font-weight:600;min-width:0}
-.search-box-white input::placeholder{color:#94a3b8;font-weight:400}
-.search-box-white button{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,#a855f7,#7e22ce);color:#fff;border:none;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit}
-
-#parent-demo-dashboard{display:none;margin-top:35px;border-top:1px solid #e2e8f0;padding-top:30px;animation:fadeIn .5s ease-in-out forwards}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-.student-profile-bar-white{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;padding:18px 24px;border-radius:16px;border:1px solid #e2e8f0;margin-bottom:25px;flex-wrap:wrap;gap:15px}
-.student-info{display:flex;align-items:center;gap:16px;min-width:0}
-.student-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#0284c7);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:#fff;flex-shrink:0}
-.student-details{min-width:0}
-.student-details h4{margin:0 0 4px;font-size:1.1rem;font-weight:700;color:#0f172a}
-.student-details p{margin:0;font-size:.8rem;color:#64748b;word-break:break-word}
-
-.demo-tabs-white{display:flex;gap:12px;margin-bottom:25px;border-bottom:1px solid #e2e8f0;padding-bottom:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tab-btn-white{background:transparent;border:none;color:#64748b;font-size:.9rem;font-weight:700;padding:10px 20px;border-radius:10px;cursor:pointer;transition:all .25s ease;display:inline-flex;align-items:center;gap:8px;font-family:inherit;flex-shrink:0;white-space:nowrap}
-.tab-btn-white:hover{color:#0f172a;background:#f1f5f9}
-.tab-btn-white.active{background:#f3e8ff;color:#7e22ce;border:1px solid #e9d5ff}
-
-.tab-content{display:none}
-.tab-content.active{display:block;animation:fadeIn .4s ease}
-
-.notif-card-white{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:16px;transition:border-color .2s,box-shadow .2s}
-.notif-card-white:hover{border-color:#cbd5e1;box-shadow:0 4px 12px rgba(0,0,0,.05)}
-.notif-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:10px;flex-wrap:wrap}
-.notif-title{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:10px}
-.notif-date{font-size:.75rem;color:#94a3b8;font-weight:500;white-space:nowrap}
-.notif-body{font-size:.88rem;color:#475569;line-height:1.5;margin:0}
-
-.bulletin-month-select{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-.month-btn-white{background:#f1f5f9;border:1px solid #cbd5e1;color:#475569;padding:6px 16px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:inherit}
-.month-btn-white.active{background:#e0f2fe;color:#0369a1;border-color:#bae6fd}
-.bulletin-table-wrap{width:100%;overflow-x:auto}
-.bulletin-table-white{width:100%;border-collapse:collapse;text-align:left;font-size:.88rem;margin-bottom:20px;min-width:480px}
-.bulletin-table-white th,.bulletin-table-white td{padding:12px 16px;border-bottom:1px solid #e2e8f0}
-.bulletin-table-white th{color:#64748b;font-weight:600;background:#f8fafc}
-.bulletin-table-white td{color:#1e293b}
-.grade-badge{font-weight:700;padding:4px 10px;border-radius:6px;font-size:.85rem;white-space:nowrap}
-.grade-good{background:#d1fae5;color:#047857}
-.grade-avg{background:#fef3c7;color:#b45309}
-
-.remark-card-white{display:flex;gap:16px;align-items:flex-start;background:#f8fafc;border:1px solid #e2e8f0;padding:20px;border-radius:14px;margin-bottom:16px}
-.glow-dot{width:12px;height:12px;border-radius:50%;margin-top:5px;flex-shrink:0}
-.dot-green{background:#10b981;box-shadow:0 0 10px rgba(16,185,129,.6)}
-.dot-orange{background:#f59e0b;box-shadow:0 0 10px rgba(245,158,11,.6)}
-.dot-red{background:#ef4444;box-shadow:0 0 10px rgba(239,68,68,.6)}
-
-/* ---------- TARIFS ---------- */
-.grid-pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.pricing-card{padding:40px 32px;display:flex;flex-direction:column;justify-content:space-between;position:relative;background:var(--panel);border:1px solid var(--line);border-radius:20px;transition:.35s}
-.pricing-card:hover{border-color:var(--purple);transform:translateY(-6px);box-shadow:var(--shadow-md)}
-.pricing-card.purple-premium{background:linear-gradient(180deg,#1c102b 0%,#0d1322 100%);border-color:rgba(168,85,247,.35);box-shadow:0 0 0 1px rgba(168,85,247,.2),0 20px 60px rgba(168,85,247,.15)}
-.popular-badge{position:absolute;top:-14px;right:24px;background:linear-gradient(135deg,#a855f7,#7e22ce);color:#fff;font-size:.72rem;font-weight:800;text-transform:uppercase;padding:6px 14px;border-radius:20px;box-shadow:0 0 20px var(--purple);letter-spacing:1px}
-.plan-name{font-size:1.4rem;font-weight:800;margin:0 0 8px;color:var(--text)}
-.plan-desc{font-size:.85rem;color:var(--muted);margin-bottom:24px;min-height:40px;line-height:1.6}
-.price-box{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
-.price-amount{font-size:2.1rem;font-weight:800;color:var(--text)}
-.price-amount span{font-size:.9rem!important}
-.price-period{font-size:.85rem;color:var(--muted);font-weight:600}
-.purchase-option{font-size:.82rem;color:var(--gold-l);font-weight:700;margin-top:8px;display:block}
-.pricing-features{list-style:none;padding:0;margin:0 0 32px}
-.pricing-features li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--muted);margin-bottom:14px}
-.pricing-features li svg{color:var(--green);flex-shrink:0;margin-top:2px}
-.pricing-card.purple-premium .pricing-features li svg{color:var(--purple)}
-.pricing-features strong{color:var(--text)}
-
-/* ---------- TÉMOIGNAGES ---------- */
-.tem .qs{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin-top:52px}
-blockquote{font-size:1.12rem;line-height:1.6;color:var(--text);padding-top:26px;border-top:3px solid var(--purple);font-weight:500;position:relative;font-style:italic}
-blockquote::before{content:"\201C";position:absolute;top:-10px;left:0;font-size:4rem;color:var(--purple);opacity:.3;font-family:Georgia,serif;line-height:1}
-cite{display:block;margin-top:20px;font-style:normal;font-size:.85rem;color:var(--muted);font-weight:600}
-cite::before{content:"— ";color:var(--purple)}
-
-/* ---------- CTA BAND ---------- */
-.cta-band{background:linear-gradient(120deg,#a855f7 0%,#7e22ce 100%);padding:80px 0;text-align:center;color:#fff;position:relative;overflow:hidden}
-.cta-band::before{content:"";position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.15),transparent 70%);pointer-events:none}
-.cta-band h2{color:#fff;margin-bottom:14px;font-size:clamp(1.6rem,3vw,2.2rem);position:relative;z-index:2}
-.cta-band p{max-width:600px;margin:0 auto 30px;color:rgba(255,255,255,.85);font-size:1.05rem;position:relative;z-index:2}
-.cta-band .btn{background:#fff;color:#7e22ce;position:relative;z-index:2}
-.cta-band .btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
-
-/* ---------- CONTACT ---------- */
-.ct{background:var(--ink2)}
-.ct .wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:80px}
-.ct p{color:var(--muted)}
-.ct ul{list-style:none;margin-top:34px}
-.ct li{padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:.96rem}
-.ct li b{color:var(--purple);display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;font-weight:700}
-form.contact-form{display:grid;gap:16px}
-form.contact-form .r{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.contact-form input,.contact-form select,.contact-form textarea{width:100%;padding:16px 18px;border:1px solid var(--line-strong);background:rgba(255,255,255,.04);color:#fff;font:inherit;border-radius:12px;transition:.3s;font-size:.95rem;font-family:inherit}
-.contact-form select option{color:#000}
-.contact-form input::placeholder,.contact-form textarea::placeholder{color:#64748b}
-.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:none;border-color:var(--purple);background:rgba(255,255,255,.08);box-shadow:0 0 0 4px rgba(168,85,247,.15)}
-.contact-form textarea{resize:vertical;min-height:120px;font-family:inherit}
-#ok{display:none;color:var(--green-l);font-weight:600;padding:14px 18px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.4);border-radius:12px;margin-top:8px}
-
-/* ---------- FOOTER ---------- */
-footer{background:#04060c;color:var(--muted);padding:70px 0 30px;font-size:.88rem;border-top:1px solid var(--line)}
-footer .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:50px;margin-bottom:50px}
-footer h4{color:#fff;font-size:.8rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:22px;font-weight:700}
-footer ul{list-style:none;display:grid;gap:12px}
-footer a{transition:.25s;font-size:.88rem}
-footer a:hover{color:var(--purple)}
-footer .brand{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-footer .brand .mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#10b981,#a855f7);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1rem}
-footer .brand b{color:#fff;font-size:1.1rem;display:block;line-height:1.2}
-footer .brand small{color:var(--muted);font-size:.7rem;letter-spacing:.5px;font-weight:400}
-footer .bottom{border-top:1px solid var(--line);padding-top:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.82rem}
-footer .bottom a{display:inline-block;margin-left:22px}
-
-/* ---------- MODALE ABONNEMENT ---------- */
-.modal-overlay{position:fixed;inset:0;background:rgba(7,10,18,.88);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px}
-.modal-overlay.active{display:flex;animation:fadeIn .3s ease}
-.modal-card{background:var(--panel);border:1px solid var(--line-strong);border-radius:24px;width:100%;max-width:520px;padding:36px;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.8);max-height:90vh;overflow-y:auto}
-.modal-close{position:absolute;top:20px;right:20px;background:transparent;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer;transition:color .2s;z-index:2}
-.modal-close:hover{color:var(--text)}
-.modal-title{font-size:1.6rem;font-weight:800;margin:0 0 6px;padding-right:28px;color:var(--text)}
-.modal-subtitle{font-size:.85rem;color:var(--muted);margin-bottom:24px}
-.modal-tabs{display:flex;gap:8px;margin-bottom:22px;border-bottom:1px solid var(--line);overflow-x:auto}
-.modal-tab-btn{background:transparent;border:none;color:var(--muted);font-size:.85rem;font-weight:700;padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s ease}
-.modal-tab-btn:hover{color:var(--text)}
-.modal-tab-btn.active{color:#c084fc;border-bottom:2px solid #a855f7;background:rgba(168,85,247,.08)}
-.modal-tab-content{display:none}
-.modal-tab-content.active{display:block}
-.contract-box{background:#04060c;border:1px solid var(--line);border-radius:14px;padding:20px;max-height:340px;overflow-y:auto;font-size:.85rem;color:var(--muted);line-height:1.65}
-.contract-box h4{color:var(--text);font-size:.95rem;margin:18px 0 8px}
-.contract-box h4:first-child{margin-top:0}
-.contract-box p{margin:0 0 10px}
-.contract-box strong{color:var(--text)}
-.contract-plan-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.15);color:#c084fc;font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:20px;margin-bottom:16px}
-.contract-accept-row{display:flex;align-items:flex-start;gap:10px;margin-top:18px;font-size:.82rem;color:var(--muted)}
-.contract-accept-row input{margin-top:3px;flex-shrink:0;width:16px;height:16px;accent-color:#a855f7}
-.contract-accept-row label{margin:0;font-weight:500;cursor:pointer;color:var(--muted)}
-.form-group{margin-bottom:18px;text-align:left}
-.form-group label{display:block;font-size:.82rem;font-weight:700;margin-bottom:6px;color:var(--text)}
-.form-input{width:100%;background:#04060c;border:1px solid var(--line-strong);border-radius:10px;padding:12px 16px;color:#fff;font-family:inherit;font-size:.9rem;outline:none;transition:border-color .2s}
-.form-input:focus{border-color:#a855f7;box-shadow:0 0 0 4px rgba(168,85,247,.15)}
-.form-row-2{display:flex;gap:12px}
-.modal-submit-btn{width:100%;margin-top:16px;padding:14px}
-
-/* =================================================================
-   ANIMATIONS
-   ================================================================= */
-.rv{opacity:0;transform:translateY(50px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1);will-change:opacity,transform}
+.wrap{width:min(1120px,92%);margin:0 auto}
+section{padding:96px 0}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.15;color:var(--navy);margin:.4rem 0 .9rem;letter-spacing:-.02em}
+h2+.bar{width:44px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:1.4rem;transform-origin:left;transition:transform .8s .2s cubic-bezier(.2,.8,.2,1)}
+.lead{color:var(--muted);max-width:640px}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.4rem;border-radius:10px;font-weight:700;font-size:.95rem;transition:transform .25s,box-shadow .25s,background .25s;cursor:pointer;border:0}
+.btn:hover{transform:translateY(-3px)}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 24px rgba(201,154,46,.35)}
+.btn-gold:hover{background:var(--gold-l);box-shadow:0 12px 30px rgba(201,154,46,.5)}
+.btn-ghost{border:1.5px solid rgba(255,255,255,.35);color:#fff;background:transparent}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+/* progress + header */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-l));z-index:200}
+header{position:fixed;inset:0 0 auto;z-index:100;padding:18px 0;transition:background .35s,padding .35s,box-shadow .35s}
+header.s{background:rgba(15,31,61,.92);backdrop-filter:blur(12px);padding:10px 0;box-shadow:0 4px 24px rgba(0,0,0,.25)}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.1rem}
+.logo{width:36px;height:36px;border-radius:9px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:1.2rem}
+nav ul{display:flex;gap:28px;list-style:none}
+nav a{color:#d5dae6;font-size:.92rem;font-weight:500;position:relative;padding:4px 0;transition:color .2s}
+nav a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--gold);transition:width .3s}
+nav a:hover{color:#fff}nav a:hover::after{width:100%}
+header .btn{padding:.6rem 1.1rem;font-size:.88rem}
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:150px 0 0;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.04);animation:drift 14s ease-in-out infinite alternate}
+.hero::before{width:520px;height:520px;right:-140px;top:-160px}
+.hero::after{width:300px;height:300px;left:-90px;bottom:120px;animation-delay:-6s}
+@keyframes drift{to{transform:translate(-30px,40px) scale(1.08)}}
+.hero .wrap{position:relative;z-index:1;text-align:center}
+.tag{display:inline-block;border:1px solid rgba(201,154,46,.6);color:var(--gold-l);padding:.35rem 1rem;border-radius:99px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.hero h1{font-size:clamp(2.4rem,6.5vw,4.6rem);line-height:1.06;letter-spacing:-.03em;margin:1.2rem auto .4rem;max-width:880px}
+.hero h1 em{font-style:normal;color:var(--gold-l)}
+#type{display:inline-block;border-right:3px solid var(--gold);padding-right:4px;animation:blink .8s step-end infinite}
+@keyframes blink{50%{border-color:transparent}}
+.hero p.sub{color:#c3cadb;font-size:1.12rem;max-width:660px;margin:1rem auto 2rem}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.chips span{border:1px solid rgba(201,154,46,.55);padding:.25rem .9rem;border-radius:99px;font-size:.8rem;font-weight:600;color:#fff}
+.stage{margin-top:56px;perspective:1400px}
+.frame{border-radius:14px 14px 0 0;background:#ece9e1;overflow:hidden;box-shadow:0 -10px 80px rgba(201,154,46,.18),0 30px 80px rgba(0,0,0,.5);transform:rotateX(6deg);transition:transform .25s ease-out;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{margin-top:-10px}}
+.dots{display:flex;gap:6px;padding:10px 14px}
+.dots i{width:10px;height:10px;border-radius:50%;background:#e0786c}.dots i:nth-child(2){background:#e3b94f}.dots i:nth-child(3){background:#7dbb7a}
+.frame img{width:100%}
+/* features */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px;margin-top:40px}
+.card{background:var(--cream);border-left:4px solid var(--gold);border-radius:12px;padding:24px 24px 22px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .35s}
+.card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(15,31,61,.14);background:#fff}
+.card .n{font-weight:800;color:var(--gold);font-size:.9rem;letter-spacing:.08em}
+.card h3{color:var(--navy);font-size:1.12rem;margin:.2rem 0 .5rem}
+.card p{font-size:.93rem;color:#3a4766}
+/* preview */
+.preview{background:var(--cream)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 24px}
+.tab{padding:.6rem 1.1rem;border-radius:99px;border:1.5px solid var(--line);background:#fff;font:600 .9rem 'DM Sans';color:var(--text);cursor:pointer;transition:all .25s}
+.tab:hover{border-color:var(--gold)}
+.tab.on{background:var(--navy);color:#fff;border-color:var(--navy);transform:translateY(-2px)}
+.shot{position:relative;border-radius:14px;overflow:hidden;background:#ece9e1;box-shadow:0 24px 60px rgba(15,31,61,.18);border:1px solid #cfcabd}
+.shot .slides{position:relative}
+.shot img{width:100%;position:absolute;inset:40px 0 auto 0;opacity:0;transform:scale(1.03);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.shot img.on{opacity:1;transform:none;position:relative;inset:auto}
+.cap{margin-top:18px;color:var(--muted);min-height:3em;transition:opacity .3s}
+.cap b{color:var(--navy)}
+/* advantages */
+.adv{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px 40px;margin-top:36px}
+.adv div{display:flex;gap:14px;align-items:flex-start;font-size:1.02rem;padding:14px 0;border-bottom:1px solid var(--line)}
+.adv svg{flex:none;width:26px;height:26px;padding:5px;border-radius:50%;background:var(--gold);stroke:var(--navy);stroke-width:3.2;fill:none;margin-top:2px}
+/* pricing */
+.pricing{background:var(--navy);color:#fff}
+.pricing h2{color:#fff}.pricing .lead{color:#c3cadb}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px;max-width:820px}
+.plan{border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:34px 30px;background:rgba(255,255,255,.04);transition:transform .35s,border-color .35s,box-shadow .35s}
+.plan:hover{transform:translateY(-8px);border-color:var(--gold)}
+.plan.hl{background:#fff;color:var(--text);border-color:var(--gold);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.plan small{font-weight:700;letter-spacing:.12em;font-size:.76rem;color:var(--gold)}
+.plan .p{font-size:2.3rem;font-weight:800;line-height:1.15;margin:.6rem 0 .1rem;letter-spacing:-.02em}
+.plan .s{opacity:.75;font-size:.95rem}
+.plan ul{list-style:none;margin:20px 0 0}
+.plan li{padding:7px 0 7px 22px;position:relative;font-size:.94rem}
+.plan li::before{content:"";position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+/* contact */
+.contact{text-align:center;background:linear-gradient(135deg,var(--cream),#fff)}
+.contact .lead{margin:0 auto 34px}
+.ct{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;max-width:860px;margin:0 auto 34px}
+.ct a{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .3s,box-shadow .3s,border-color .3s}
+.ct a:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(15,31,61,.12);border-color:var(--gold)}
+.ct b{display:block;font-size:.74rem;letter-spacing:.14em;color:var(--gold);margin-bottom:4px}
+.ct span{font-weight:600;color:var(--navy);word-break:break-all}
+footer{background:var(--navy);color:#aeb6c8;text-align:center;padding:28px 0;font-size:.88rem}
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
 .rv.in{opacity:1;transform:none}
-.rv.delay-1{transition-delay:.1s}
-.rv.delay-2{transition-delay:.2s}
-.rv.delay-3{transition-delay:.3s}
-
-.card,.proj,.nw article,.gal .img,blockquote,.stat-item,.pricing-card,.notif-card-white,.remark-card-white{
-  opacity:0;transform:translateY(60px) scale(.97);
-  transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),box-shadow .45s cubic-bezier(.2,.8,.2,1),border-color .3s;
-  will-change:opacity,transform;
-}
-.card.in,.proj.in,.nw article.in,.gal .img.in,blockquote.in,.stat-item.in,.pricing-card.in,.notif-card-white.in,.remark-card-white.in{opacity:1;transform:none}
-
-.grid3 .card:nth-child(3n+1){transform:translate(-60px,40px) scale(.97)}
-.grid3 .card:nth-child(3n+2){transform:translate(0,70px) scale(.97)}
-.grid3 .card:nth-child(3n+3){transform:translate(60px,40px) scale(.97)}
-.grid3 .card.in{transform:none}
-
-.proj:nth-child(odd){transform:translateX(-70px) scale(.98)}
-.proj:nth-child(even){transform:translateX(70px) scale(.98)}
-.proj.in{transform:none}
-
-.grid-pricing .pricing-card:nth-child(1){transform:translateY(50px)}
-.grid-pricing .pricing-card:nth-child(2){transform:translateY(50px)}
-.grid-pricing .pricing-card:nth-child(3){transform:translateY(50px)}
-.grid-pricing .pricing-card.in{transform:none}
-
-.stat-item{transform:translateY(50px)}
-.stat-item.in{transform:none}
-
-/* Machine à écrire */
-.type{display:inline-block;overflow:hidden;white-space:nowrap;border-right:3px solid var(--purple);padding-right:4px;max-width:0}
-.type.typing{animation:typing 1.4s steps(40,end) forwards,blink .8s step-end infinite}
-.type.done{border-right-color:transparent;max-width:100%;animation:none}
-@keyframes typing{from{max-width:0}to{max-width:100%}}
-@keyframes blink{50%{border-right-color:transparent}100%{border-right-color:var(--purple)}}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  .rv,.card,.proj,.nw article,.gal .img,blockquote,.stat-item,.pricing-card,.cap>*,.notif-card-white,.remark-card-white{opacity:1!important;transform:none!important}
-  .type{max-width:100%;border-right:0}
-}
-
-/* ---------- RESPONSIVE ---------- */
-@media(max-width:1024px){
-  .grid3,.grid-pricing{grid-template-columns:1fr 1fr}
-  footer .grid{grid-template-columns:1fr 1fr;gap:40px}
-}
-@media(max-width:960px){
-  section{padding:80px 0}
-  .bar{height:78px}
-  header.solid .bar{height:70px}
-  nav{position:fixed;inset:78px 0 auto 0;background:var(--ink2);max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.2,.8,.2,1);box-shadow:0 20px 40px rgba(0,0,0,.5);border-bottom:1px solid var(--line)}
-  nav.open{max-height:520px}
-  nav ul{flex-direction:column;padding:24px 28px;gap:20px;font-size:1rem}
-  .burger{display:block}
-  .btn-header{display:none}
-  .about .wrap,.projects .wrap,.goal .wrap,.ct .wrap{grid-template-columns:1fr;gap:50px}
-  .stats .wrap{grid-template-columns:1fr 1fr;gap:30px}
-  .tem .qs{grid-template-columns:1fr;gap:30px}
-  .about .pic .img{height:420px}
-  .about .pic::before{inset:18px -12px -18px 18px}
-  .cap{bottom:20vh}
-  .arrows{display:none}
-  .scroll-hint{display:none}
-  .goal .big{letter-spacing:-4px}
-  h2{font-size:clamp(1.7rem,5vw,2.4rem)}
-  .proj:nth-child(odd),.proj:nth-child(even){transform:translateY(60px)}
-  .grid3 .card:nth-child(3n+1),.grid3 .card:nth-child(3n+2),.grid3 .card:nth-child(3n+3){transform:translateY(60px) scale(.97)}
-  .parent-portal-box-white{padding:24px}
-  .portal-header{gap:20px}
-}
-@media(max-width:640px){
-  .grid-pricing{grid-template-columns:1fr}
-  .stats .wrap{grid-template-columns:1fr;gap:24px}
-}
-@media(max-width:560px){
-  .wrap{padding:0 20px}
-  section{padding:64px 0}
-  .grid3{grid-template-columns:1fr}
-  .vals,.form-row-2,.contact-form .r{grid-template-columns:1fr}
-  .cap .btn+.btn{margin:12px 0 0;display:block}
-  .cap h1{letter-spacing:-1px}
-  .goal .big{letter-spacing:-3px}
-  .stats b{font-size:2.6rem}
-  footer .grid{grid-template-columns:1fr;gap:34px}
-  footer .bottom{flex-direction:column;text-align:center}
-  footer .bottom a{margin:0 8px}
-  .parent-portal-box-white{padding:20px 16px;border-radius:18px}
-  .portal-text h3{font-size:1.4rem}
-  .search-box-white{flex-direction:column}
-  .student-profile-bar-white{padding:16px}
-  .demo-tabs-white{gap:8px}
-  .tab-btn-white{padding:9px 14px;font-size:.82rem}
-  .modal-card{padding:24px 18px;border-radius:18px}
-  .form-row-2{flex-direction:column;gap:0}
-}
+h2+.bar.rv{opacity:1;transform:scaleX(0)}h2+.bar.rv.in{transform:scaleX(1)}
+@media(max-width:820px){nav{display:none}section{padding:70px 0}.frame{transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-
-<!-- ==================== HEADER ==================== -->
-<header id="hd"><div class="wrap bar">
-  <a href="#accueil" class="logo" aria-label="NuruxData – Accueil">
-    <span class="mark">N</span>
-    <span>NuruxData<small>Système de Gestion Scolaire</small></span>
-  </a>
-  <button class="burger" id="bg" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
-  <nav id="nv" aria-label="Navigation principale"><ul>
-    <li><a href="#apropos">L'Agence</a></li>
-    <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-    <li><a href="#parents">Espace Parents</a></li>
-    <li><a href="#tarifs">Tarifs</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul></nav>
-  <a href="#tarifs" class="btn purple btn-header">Découvrir les offres</a>
+<div id="prog"></div>
+<header id="hd"><div class="wrap bar-in">
+  <a class="brand" href="#accueil"><span class="logo">N</span>NuruxData</a>
+  <nav><ul><li><a href="#fonctionnalites">Fonctionnalités</a></li><li><a href="#apercu">Aperçu</a></li><li><a href="#avantages">Avantages</a></li><li><a href="#tarifs">Tarifs</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+  <a class="btn btn-gold" href="#contact">Demander une démo</a>
 </div></header>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="accueil" aria-label="Diaporama d'accueil">
-  <div id="slides"></div>
-  <div class="scroll-hint" aria-hidden="true"><span>Découvrir</span></div>
-  <div class="ctrl"><div class="wrap">
-    <div class="dots" id="dots" role="tablist" aria-label="Navigation du diaporama"></div>
-    <div class="arrows">
-      <button id="pv" aria-label="Image précédente">‹</button>
-      <button id="nx" aria-label="Image suivante">›</button>
-    </div>
-  </div></div>
-</section>
+<section class="hero" id="accueil"><div class="wrap">
+  <span class="tag rv">Présentation des fonctionnalités</span>
+  <h1 class="rv" style="--d:.1s">Gérez vos <em id="type">élèves</em><br>en toute simplicité</h1>
+  <p class="sub rv" style="--d:.2s">Solution de gestion scolaire pour établissements préscolaires, primaires, collèges et lycées.</p>
+  <div class="cta rv" style="--d:.3s"><a class="btn btn-gold" href="#contact">Demander une démonstration</a><a class="btn btn-ghost" href="NuruxData_Presentation.pdf" download>Télécharger le PDF</a></div>
+  <div class="chips rv" style="--d:.4s"><span>Préscolaire</span><span>Primaire</span><span>Collège</span><span>Lycée</span></div>
+  <div class="stage rv" style="--d:.5s"><div class="frame" id="tilt"><div class="dots"><i></i><i></i><i></i></div><img src="img/tableau-de-bord.png" alt="Tableau de bord NuruxData"></div></div>
+</div></section>
 
-<!-- ==================== PARTENAIRES ==================== -->
-<div class="partners">
-  <div class="wrap">
-    <p>La confiance de plus de 200 établissements scolaires</p>
-    <div class="partners-track">
-      <span class="partner">École Les Étoiles</span>
-      <span class="partner">CS Saint-Joseph</span>
-      <span class="partner">Lycée Moderne</span>
-      <span class="partner">Groupe Scolaire Alpha</span>
-      <span class="partner">Institut Sainte-Marie</span>
-      <span class="partner">Complexe Éducatif Beta</span>
-    </div>
-  </div>
-</div>
+<section id="fonctionnalites"><div class="wrap">
+  <span class="eyebrow rv">Fonctionnalités clés</span>
+  <h2 class="rv">Tout votre établissement, dans une seule application</h2><div class="bar rv"></div>
+  <p class="lead rv">NuruxData simplifie la gestion quotidienne : inscription des élèves, suivi des notes et présences, encaissement de la scolarité, gestion du personnel, communication et sauvegarde des données.</p>
+  <div class="grid" id="feats"></div>
+</div></section>
 
-<!-- ==================== STATS ==================== -->
-<div class="stats">
-  <div class="wrap">
-    <div class="stat-item"><b data-n="217" data-s="+">0</b><span>Écoles équipées</span></div>
-    <div class="stat-item"><b data-n="145280">0</b><span>Élèves suivis</span></div>
-    <div class="stat-item"><b data-n="98" data-s="%">0</b><span>Taux de satisfaction</span></div>
-    <div class="stat-item"><b data-n="42" data-s="M+">0</b><span>FCFA de paiements traités</span></div>
-  </div>
-</div>
+<section class="preview" id="apercu"><div class="wrap">
+  <span class="eyebrow rv">Aperçu de l’application</span>
+  <h2 class="rv">Une interface claire, pensée pour le quotidien</h2><div class="bar rv"></div>
+  <div class="tabs rv" id="tabs"></div>
+  <div class="shot rv"><div class="dots"><i></i><i></i><i></i></div><div class="slides" id="slides"></div></div>
+  <p class="cap" id="cap"></p>
+</div></section>
 
-<!-- ==================== À PROPOS ==================== -->
-<section class="about" id="apropos"><div class="wrap">
-  <div class="pic rv"><div class="img" data-img="about"></div></div>
-  <div class="rv delay-1">
-    <span class="eyebrow">L'Agence</span>
-    <h2 data-type data-type-speed="30">La plateforme de gestion scolaire nouvelle génération</h2>
-    <p>Placée au service des <strong>directeurs, promoteurs et comptables</strong> d'établissements scolaires, <strong>NuruxData</strong> centralise l'intégralité des dossiers élèves, la scolarité et la gestion financière dans une infrastructure sécurisée, ultra-rapide et connectée en temps réel.</p>
-    <p>De la simple école primaire au complexe scolaire multi-sites, NuruxData s'adapte à votre organisation et vous fait gagner un temps considérable sur toutes vos tâches administratives.</p>
-    <div class="vals">
-      <div><b>Centraliser</b><span>Tous les dossiers élèves, notes et paiements.</span></div>
-      <div><b>Sécuriser</b><span>Données chiffrées, stockage local et Cloud.</span></div>
-      <div><b>Communiquer</b><span>Portail parents, notifications, bulletins.</span></div>
-      <div><b>Piloter</b><span>Tableaux de bord temps réel, alertes, rapports.</span></div>
-    </div>
-    <a href="#fonctionnalites" class="btn green">Découvrir les fonctionnalités →</a>
+<section id="avantages"><div class="wrap">
+  <span class="eyebrow rv">Pourquoi NuruxData</span>
+  <h2 class="rv">Avantages pour votre établissement</h2><div class="bar rv"></div>
+  <div class="adv" id="adv"></div>
+</div></section>
+
+<section class="pricing" id="tarifs"><div class="wrap">
+  <span class="eyebrow rv">Mode de paiement et tarifs</span>
+  <h2 class="rv">Deux formules, selon votre budget</h2><div class="bar rv"></div>
+  <p class="lead rv">NuruxData est proposée selon deux formules : une installation avec abonnement mensuel, ou un achat définitif de la licence payable en trois tranches.</p>
+  <div class="plans">
+    <div class="plan rv"><small>INSTALLATION + ABONNEMENT</small><div class="p">35 000 FCFA</div><div class="s">+ 50 000 FCFA / mois</div><ul><li>Installation initiale de l’application : 35 000 FCFA</li><li>Abonnement mensuel : 50 000 FCFA par mois</li></ul></div>
+    <div class="plan hl rv" style="--d:.15s"><small>ACHAT DÉFINITIF</small><div class="p">800 000 FCFA</div><div class="s">Licence définitive de la solution</div><ul><li>Achat définitif de la solution</li><li>Payable en trois tranches</li></ul></div>
   </div>
 </div></section>
 
-<!-- ==================== FONCTIONNALITÉS ==================== -->
-<section class="sectors" id="fonctionnalites"><div class="wrap">
-  <div class="head rv">
-    <div>
-      <span class="eyebrow">Nos modules</span>
-      <h2 data-type data-type-speed="30">Une solution complète et intégrée</h2>
-      <p class="lead">Conçue pour répondre aux exigences des promoteurs, directeurs et comptables d'écoles modernes. Chaque module est pensé pour un usage concret et quotidien.</p>
-    </div>
-    <a href="#contact" class="btn ghost">Demander la démo →</a>
+<section class="contact" id="contact"><div class="wrap">
+  <span class="eyebrow rv">Contact</span>
+  <h2 class="rv">Une démonstration, une installation ?</h2>
+  <p class="lead rv">Contactez-nous pour une démonstration, une installation ou toute information complémentaire.</p>
+  <div class="ct">
+    <a class="rv" href="tel:065207553"><b>TÉLÉPHONE</b><span>06 520 75 53</span></a>
+    <a class="rv" style="--d:.1s" href="mailto:mspnuru63@gmail.com"><b>E-MAIL</b><span>mspnuru63@gmail.com</span></a>
+    <a class="rv" style="--d:.2s" href="https://nuruxdata.vercel.app"><b>SITE WEB</b><span>nuruxdata.vercel.app</span></a>
   </div>
-  <div class="grid3">
-    <article class="card">
-      <div class="img" data-img="eleves"></div>
-      <div class="in">
-        <span class="tag">Dossiers · Élèves</span>
-        <h3>Gestion des Dossiers Élèves</h3>
-        <p>Inscriptions, suivi des effectifs par classe, fiches disciplinaires, photos et archivage sécurisé de tous les documents administratifs.</p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="img" data-img="paiements"></div>
-      <div class="in">
-        <span class="tag green">Finances · Caisse</span>
-        <h3>Paiements & Trésorerie</h3>
-        <p>Suivi en temps réel des frais de scolarité, émission instantanée des reçus, gestion des salaires et alertes automatiques pour les impayés.</p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="img" data-img="notes"></div>
-      <div class="in">
-        <span class="tag gold">Notes · Bulletins</span>
-        <h3>Notes & Bulletins</h3>
-        <p>Saisie rapide des notes par matière, calcul automatique des moyennes, rangs et génération de bulletins imprimables en un clic.</p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="img" data-img="communication"></div>
-      <div class="in">
-        <span class="tag">Communication</span>
-        <h3>Notifications & Parents</h3>
-        <p>Diffusion fluide des notes, bulletins semestriels et annonces d'urgence directement vers les parents d'élèves via le portail web.</p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="img" data-img="personnel"></div>
-      <div class="in">
-        <span class="tag green">Ressources Humaines</span>
-        <h3>Personnel & Salaires</h3>
-        <p>Gestion des enseignants, contrats, paiements des salaires, pointage des présences et suivi des heures effectuées.</p>
-      </div>
-    </article>
-    <article class="card">
-      <div class="img" data-img="presences"></div>
-      <div class="in">
-        <span class="tag gold">Présences</span>
-        <h3>Pointage Intelligent</h3>
-        <p>Suivi des présences élèves et personnel via Wi-Fi. Les pointages s'enregistrent automatiquement sur la plateforme en temps réel.</p>
-      </div>
-    </article>
-  </div>
+  <a class="btn btn-gold rv" href="NuruxData_Presentation.pdf" download>Télécharger la présentation PDF</a>
 </div></section>
-
-<!-- ==================== PROJETS / MODULES AVANCÉS ==================== -->
-<section class="projects" id="projets"><div class="wrap">
-  <div class="rv">
-    <span class="eyebrow">Modules avancés</span>
-    <h2 data-type data-type-speed="35">Tout ce dont votre école a besoin</h2>
-    <p class="lead" style="margin-bottom:34px">Des fonctionnalités concrètes au service des directeurs, des enseignants et des familles.</p>
-    <a href="#contact" class="btn green">Rejoindre un projet →</a>
-  </div>
-  <div class="proj-list">
-    <div class="proj">
-      <div class="num">01</div>
-      <div>
-        <b>Sauvegarde complète & Export JSON</b>
-        <span>Vos données vous appartiennent. Exportez tout (élèves, notes, paiements, personnel) en un fichier JSON réutilisable à tout moment.</span>
-      </div>
-    </div>
-    <div class="proj">
-      <div class="num">02</div>
-      <div>
-        <b>Mode 100% Hors-ligne avec IndexedDB</b>
-        <span>La plateforme fonctionne même sans internet : toutes les données sont stockées localement et synchronisées automatiquement quand le réseau revient.</span>
-      </div>
-    </div>
-    <div class="proj">
-      <div class="num">03</div>
-      <div>
-        <b>Synchronisation Cloud avec Firebase</b>
-        <span>Le promoteur peut consulter les données financières de son école à distance depuis n'importe quel appareil, en temps réel.</span>
-      </div>
-    </div>
-    <div class="proj">
-      <div class="num">04</div>
-      <div>
-        <b>Pointage Wi-Fi via protocole local</b>
-        <span>Le surveillant pointe les arrivées et départs depuis son téléphone, connecté au même Wi-Fi que le PC de l'école. Aucun internet requis.</span>
-      </div>
-    </div>
-    <div class="proj">
-      <div class="num">05</div>
-      <div>
-        <b>Portail Web pour les parents</b>
-        <span>Chaque parent accède aux notes, bulletins, avis de paiement et remarques de son enfant grâce à un simple matricule élève.</span>
-      </div>
-    </div>
-  </div>
-</div></section>
-
-<!-- ==================== OBJECTIF / PROMESSE ==================== -->
-<section class="goal" id="objectif"><div class="wrap">
-  <div class="rv">
-    <span class="eyebrow gold">Notre promesse</span>
-    <h2 data-type data-type-speed="30">Une école sans papier, sans stress</h2>
-    <p>NuruxData s'engage à simplifier la gestion administrative de votre établissement et à rapprocher l'école des familles.</p>
-    <ul>
-      <li>Jusqu'à 90 % de temps économisé sur les tâches administratives</li>
-      <li>Aucune perte de données grâce aux sauvegardes automatiques</li>
-      <li>Suivi financier complet et transparent</li>
-      <li>Communication directe avec les parents d'élèves</li>
-      <li>Accompagnement et formation de votre équipe</li>
-    </ul>
-  </div>
-  <div class="rv delay-1 big-wrap">
-    <span class="big" data-type data-type-speed="90">98%</span>
-    <small>de nos clients<br>renouvellent leur abonnement<br>chaque année</small>
-    <div class="progress" aria-hidden="true"></div>
-  </div>
-</div></section>
-
-<!-- ==================== PORTAIL PARENTS (DÉMO) ==================== -->
-<section class="parents-section" id="parents"><div class="wrap">
-  <div class="rv" style="text-align:center;margin-bottom:52px">
-    <span class="eyebrow">Démonstration interactive</span>
-    <h2 data-type data-type-speed="35">Espace d'Accès Parents & Suivi Élève</h2>
-    <p class="lead" style="margin:0 auto">Entrez n'importe quel code matricule (ex: <strong>NX-2026-89</strong>) pour tester le portail en direct.</p>
-  </div>
-
-  <div class="parent-portal-box-white rv delay-1">
-    <div class="portal-header">
-      <div class="portal-text">
-        <div class="badge-tag-light">Démonstration interactive</div>
-        <h3>Portail de Suivi Scolaire en Direct</h3>
-        <p>Une interface moderne, claire et intuitive pour que les parents accèdent aux informations de leur enfant en quelques secondes.</p>
-        <form id="demo-search-form" class="search-box-white" onsubmit="openParentDemo(event)">
-          <input type="text" id="matricule-input" placeholder="Saisissez un matricule élève..." value="NX-2026-89" required>
-          <button type="submit">Vérifier</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- Interface Parent Simulée -->
-    <div id="parent-demo-dashboard">
-      <div class="student-profile-bar-white">
-        <div class="student-info">
-          <div class="student-avatar">AM</div>
-          <div class="student-details">
-            <h4>Alexandre MIKALA</h4>
-            <p>Classe : <strong>Classe de 3ème</strong> | Matricule : <span id="display-matricule" style="color: #0284c7; font-weight: 700;">NX-2026-89</span></p>
-          </div>
-        </div>
-        <div style="font-size: 0.8rem; background: #d1fae5; color: #047857; padding: 6px 14px; border-radius: 20px; font-weight: 700;">
-          Scolarité à jour
-        </div>
-      </div>
-
-      <div class="demo-tabs-white">
-        <button class="tab-btn-white active" onclick="switchTab('tab-notifications', this)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          Notifications (3)
-        </button>
-        <button class="tab-btn-white" onclick="switchTab('tab-bulletins', this)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          Bulletins (3)
-        </button>
-        <button class="tab-btn-white" onclick="switchTab('tab-remarques', this)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Remarques & Suivi (3)
-        </button>
-      </div>
-
-      <!-- ONGLET 1: NOTIFICATIONS -->
-      <div id="tab-notifications" class="tab-content active">
-        <div class="notif-card-white" style="border-left: 4px solid #d97706;">
-          <div class="notif-header">
-            <span class="notif-title" style="color: #b45309;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              Avis de Paiement — Octobre
-            </span>
-            <span class="notif-date">Il y a 2 jours</span>
-          </div>
-          <p class="notif-body">Nous rappelons aux parents que le règlement des frais de scolarité du mois d'Octobre doit s'effectuer avant le 15 du mois en cours. Merci de régulariser la situation auprès de la caisse.</p>
-        </div>
-
-        <div class="notif-card-white" style="border-left: 4px solid #0284c7;">
-          <div class="notif-header">
-            <span class="notif-title" style="color: #0369a1;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Avis de Réunion Parents-Professeurs
-            </span>
-            <span class="notif-date">12 Janvier 2026</span>
-          </div>
-          <p class="notif-body">La grande réunion d'évaluation du premier trimestre aura lieu ce samedi à partir de 09h00. Votre présence est vivement souhaitée.</p>
-        </div>
-
-        <div class="notif-card-white" style="border-left: 4px solid #10b981;">
-          <div class="notif-header">
-            <span class="notif-title" style="color: #047857;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12 8 8 12 12 16 12 8"/></svg>
-              Sortie Pédagogique Nationale
-            </span>
-            <span class="notif-date">05 Janvier 2026</span>
-          </div>
-          <p class="notif-body">Une visite guidée au Musée National est organisée pour les élèves de 3ème. Les autorisations parentales signées doivent être déposées au secrétariat au plus tard jeudi prochain.</p>
-        </div>
-      </div>
-
-      <!-- ONGLET 2: BULLETINS -->
-      <div id="tab-bulletins" class="tab-content">
-        <div class="bulletin-month-select">
-          <button class="month-btn-white active" onclick="loadBulletin('octobre', this)">Octobre 2025</button>
-          <button class="month-btn-white" onclick="loadBulletin('novembre', this)">Novembre 2025</button>
-          <button class="month-btn-white" onclick="loadBulletin('decembre', this)">Décembre 2025</button>
-        </div>
-
-        <div style="background: #ffffff; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-            <h4 id="bulletin-title" style="margin: 0; font-size: 1.1rem; color: #0284c7;">Relevé de Notes — Octobre 2025</h4>
-            <span id="bulletin-average" style="font-weight: 800; font-size: 0.95rem; color: #047857; background: #d1fae5; padding: 4px 12px; border-radius: 8px;">Moyenne : 15.5 / 20</span>
-          </div>
-          <div class="bulletin-table-wrap">
-            <table class="bulletin-table-white">
-              <thead>
-                <tr>
-                  <th>Matière</th>
-                  <th>Note / 20</th>
-                  <th>Appréciation du Professeur</th>
-                </tr>
-              </thead>
-              <tbody id="bulletin-rows"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ONGLET 3: REMARQUES -->
-      <div id="tab-remarques" class="tab-content">
-        <div class="remark-card-white">
-          <div class="glow-dot dot-green" title="Très bon comportement"></div>
-          <div>
-            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: #047857;">Félicitations Pédagogiques — Mathématiques</div>
-            <p style="margin: 0; font-size: 0.88rem; color: #475569; line-height: 1.5;">
-              Alexandre a fait preuve d'un esprit d'analyse exemplaire lors des travaux pratiques de géométrie. Sa participation active tire toute la classe vers le haut.
-            </p>
-          </div>
-        </div>
-
-        <div class="remark-card-white">
-          <div class="glow-dot dot-orange" title="Avertissement léger"></div>
-          <div>
-            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: #b45309;">Rappel de Ponctualité</div>
-            <p style="margin: 0; font-size: 0.88rem; color: #475569; line-height: 1.5;">
-              Trois retards injustifiés constatés lors de la première heure de cours cette semaine. Merci de veiller à une plus grande rigueur sur le temps de trajet du matin.
-            </p>
-          </div>
-        </div>
-
-        <div class="remark-card-white">
-          <div class="glow-dot dot-red" title="Incidence / Discipline"></div>
-          <div>
-            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; color: #b91c1c;">Remarque Disciplinaire — Oubli de matériel</div>
-            <p style="margin: 0; font-size: 0.88rem; color: #475569; line-height: 1.5;">
-              Non-remise du devoir maison de Physique-Chimie et absence répétée du manuel de cours. Une convocation en suivi pédagogique est envisagée si cela persiste.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div></section>
-
-<!-- ==================== TÉMOIGNAGES ==================== -->
-<section class="tem"><div class="wrap">
-  <div class="rv">
-    <span class="eyebrow">Témoignages</span>
-    <h2 data-type data-type-speed="35">Ils nous font confiance</h2>
-  </div>
-  <div class="qs">
-    <blockquote>Depuis que nous utilisons NuruxData, la gestion de la caisse et des impayés est devenue un jeu d'enfant. Nous avons gagné des heures chaque semaine.<cite>Mme Nkounkou, Directrice d'école primaire</cite></blockquote>
-    <blockquote>Le portail parents a transformé notre relation avec les familles. Les parents sont informés en temps réel et viennent beaucoup plus nombreux aux réunions.<cite>M. Loubaki, Promoteur de complexe scolaire</cite></blockquote>
-    <blockquote>L'équipe de NuruxData nous a accompagnés pas à pas, de l'installation à la formation de nos secrétaires. Un vrai partenaire, pas juste un logiciel.<cite>M. Pandzou, Comptable d'établissement</cite></blockquote>
-  </div>
-</div></section>
-
-<!-- ==================== TARIFS ==================== -->
-<section id="tarifs"><div class="wrap">
-  <div class="head rv" style="justify-content:center;text-align:center;flex-direction:column;align-items:center">
-    <div style="text-align:center">
-      <span class="eyebrow">Tarifs & Modèles d'Abonnement</span>
-      <h2 data-type data-type-speed="35">Choisissez votre formule</h2>
-      <p class="lead" style="margin:0 auto">Choisissez la formule adaptée à la taille et aux ambitions de votre établissement.</p>
-    </div>
-  </div>
-
-  <div class="grid-pricing">
-    <div class="pricing-card">
-      <div>
-        <h3 class="plan-name">Starter</h3>
-        <p class="plan-desc">La solution idéale pour la gestion interne autonome de votre école.</p>
-        <div class="price-box">
-          <div class="price-amount">80 000 <span style="font-size: 0.9rem; font-weight: 600;">FCFA</span></div>
-          <div class="price-period">par mois</div>
-          <span class="purchase-option">Achat définitif : 800 000 FCFA</span>
-        </div>
-        <ul class="pricing-features">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Gestion des documents élèves</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi complet de la caisse et reçus</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Inscriptions & Relevés internes</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Mode 100% Local / Hors-ligne</li>
-        </ul>
-      </div>
-      <button onclick="openSubscriptionModal('Starter')" class="btn ghost" style="width:100%">Choisir Starter</button>
-    </div>
-
-    <div class="pricing-card">
-      <div>
-        <h3 class="plan-name" style="color: #38bdf8;">Pro Sync</h3>
-        <p class="plan-desc">Gestion interne + Synchronisation Cloud pour le promoteur à distance.</p>
-        <div class="price-box">
-          <div class="price-amount">120 000 <span style="font-size: 0.9rem; font-weight: 600;">FCFA</span></div>
-          <div class="price-period">par mois</div>
-          <span class="purchase-option">Achat définitif : 1 200 000 FCFA</span>
-        </div>
-        <ul class="pricing-features">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tout le pack <strong>Starter</strong> inclus</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Connexion Mobile Firebase Temps Réel</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Dashboard Promoteur à distance</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Alertes financières instantanées</li>
-        </ul>
-      </div>
-      <button onclick="openSubscriptionModal('Pro Sync')" class="btn purple" style="width:100%">Activer la version Pro</button>
-    </div>
-
-    <div class="pricing-card purple-premium">
-      <span class="popular-badge">Offre Ultime</span>
-      <div>
-        <h3 class="plan-name" style="color: #a855f7;">Enterprise Premium</h3>
-        <p class="plan-desc">L'expérience ultime avec portail web interactif dédié aux parents d'élèves.</p>
-        <div class="price-box">
-          <div class="price-amount">180 000 <span style="font-size: 0.9rem; font-weight: 600;">FCFA</span></div>
-          <div class="price-period">par mois</div>
-          <span class="purchase-option" style="color: #e9d5ff;">Achat définitif : 1 800 000 FCFA</span>
-        </div>
-        <ul class="pricing-features">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tout le pack <strong>Pro Sync</strong> inclus</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Site web officiel de l'école inclus</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Portail Web Parents (Accès Matricule)</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bulletins & Notifications en ligne</li>
-        </ul>
-      </div>
-      <button onclick="openSubscriptionModal('Enterprise Premium')" class="btn purple" style="width:100%">Souscrire au Pack Premium</button>
-    </div>
-  </div>
-</div></section>
-
-<!-- ==================== CTA BAND ==================== -->
-<section class="cta-band">
-  <div class="wrap">
-    <h2>Prêt à moderniser votre établissement ?</h2>
-    <p>Notre équipe vous accompagne de l'installation à la formation de vos équipes.</p>
-    <a href="#contact" class="btn">Démarrer un projet →</a>
-  </div>
-</section>
-
-<!-- ==================== CONTACT ==================== -->
-<section class="ct" id="contact"><div class="wrap">
-  <div class="rv">
-    <span class="eyebrow">Contact</span>
-    <h2 data-type data-type-speed="35">Parlons de votre école</h2>
-    <p style="max-width:440px">Notre équipe vous répond dans les 48 heures et vous propose une démonstration personnalisée.</p>
-    <ul>
-      <li><b>Siège social</b>Brazzaville, République du Congo</li>
-      <li><b>Téléphone</b>+242 06 000 00 00</li>
-      <li><b>Courriel</b>contact@nuruxdata.com</li>
-      <li><b>Support technique</b>Du lundi au samedi · 8h – 18h</li>
-      <li><b>Formations</b>Sur site ou à distance selon votre formule</li>
-    </ul>
-  </div>
-  <form class="contact-form rv delay-1" id="fm" novalidate>
-    <div class="r">
-      <input required placeholder="Nom complet" aria-label="Nom complet" autocomplete="name" name="nom">
-      <input required type="tel" placeholder="Téléphone" aria-label="Téléphone" autocomplete="tel" name="telephone">
-    </div>
-    <input required type="email" placeholder="Courriel professionnel" aria-label="Courriel" autocomplete="email" name="email">
-    <select aria-label="Sujet de votre demande" name="sujet">
-      <option value="">Choisissez un sujet…</option>
-      <option>Demande de démonstration</option>
-      <option>Partenariat</option>
-      <option>Support technique</option>
-      <option>Presse</option>
-      <option>Autre</option>
-    </select>
-    <textarea rows="5" placeholder="Décrivez votre école ou votre demande…" aria-label="Message" name="message"></textarea>
-    <button class="btn purple" type="submit">Envoyer le message</button>
-    <p id="ok" role="status">✓ Merci, votre message a bien été envoyé. Nous vous répondrons sous 48 heures.</p>
-  </form>
-</div></section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer><div class="wrap">
-  <div class="grid">
-    <div>
-      <div class="brand">
-        <span class="mark">N</span>
-        <b>NuruxData<small>Système de Gestion Scolaire Intelligente</small></b>
-      </div>
-      <p style="color:var(--muted);font-size:.88rem;line-height:1.7;max-width:340px">La plateforme de gestion scolaire nouvelle génération au service des établissements d'Afrique centrale et de l'Ouest.</p>
-    </div>
-    <div>
-      <h4>L'Agence</h4>
-      <ul>
-        <li><a href="#apropos">Qui sommes-nous</a></li>
-        <li><a href="#fonctionnalites">Nos fonctionnalités</a></li>
-        <li><a href="#parents">Espace parents</a></li>
-        <li><a href="#tarifs">Tarifs & Abonnements</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Modules</h4>
-      <ul>
-        <li><a href="#fonctionnalites">Dossiers élèves</a></li>
-        <li><a href="#fonctionnalites">Paiements & Caisse</a></li>
-        <li><a href="#fonctionnalites">Notes & Bulletins</a></li>
-        <li><a href="#fonctionnalites">Présences Wi-Fi</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li>Brazzaville, Congo</li>
-        <li>+242 06 000 00 00</li>
-        <li>contact@nuruxdata.com</li>
-        <li>Lun–Sam · 8h–18h</li>
-      </ul>
-    </div>
-  </div>
-  <div class="bottom">
-    <span>© 2026 NuruxData Infrastructure. Tous droits réservés.</span>
-    <span>
-      <a href="#">Mentions légales</a>
-      <a href="#">Politique de confidentialité</a>
-      <a href="#">Plan du site</a>
-    </span>
-  </div>
-</div></footer>
-
-<!-- ==================== MODALE ABONNEMENT ==================== -->
-<div id="subscription-modal" class="modal-overlay">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeSubscriptionModal()">&times;</button>
-    <h3 class="modal-title">Souscription <span id="selected-plan-name" style="color: #a855f7;"></span></h3>
-    <p class="modal-subtitle">Remplissez le formulaire ou consultez le contrat avant de valider votre demande.</p>
-
-    <div class="modal-tabs">
-      <button class="modal-tab-btn active" onclick="switchModalTab('modal-tab-form', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Formulaire
-      </button>
-      <button class="modal-tab-btn" onclick="switchModalTab('modal-tab-contract', this)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6m-6 4h6M9 8h1"/><path d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></svg>
-        Contrat d'abonnement
-      </button>
-    </div>
-
-    <div id="modal-tab-form" class="modal-tab-content active">
-      <form id="subscription-form" onsubmit="submitSubscription(event)">
-        <div class="form-row-2">
-          <div class="form-group" style="flex: 1;">
-            <label>Nom</label>
-            <input type="text" id="sub-nom" class="form-input" placeholder="Ex: MBA" required>
-          </div>
-          <div class="form-group" style="flex: 1;">
-            <label>Prénom</label>
-            <input type="text" id="sub-prenom" class="form-input" placeholder="Ex: Jean" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Nom de l'établissement scolaire</label>
-          <input type="text" id="sub-etablissement" class="form-input" placeholder="Ex: Complexe Scolaire Saint-Joseph" required>
-        </div>
-
-        <div class="form-group">
-          <label>Numéro de Téléphone</label>
-          <input type="tel" id="sub-telephone" class="form-input" placeholder="Ex: +242 06 000 0000" required>
-        </div>
-
-        <div class="form-group">
-          <label>Adresse / Ville</label>
-          <input type="text" id="sub-adresse" class="form-input" placeholder="Ex: Brazzaville, Poto-Poto" required>
-        </div>
-
-        <div class="contract-accept-row">
-          <input type="checkbox" id="sub-accept-contract" required>
-          <label for="sub-accept-contract">
-            J'ai lu et j'accepte les termes du <a href="#" onclick="switchModalTabByLabel(event)" style="color:#a855f7; font-weight:700;">contrat d'abonnement</a>.
-          </label>
-        </div>
-
-        <button type="submit" id="submit-btn" class="btn purple modal-submit-btn">
-          Valider la Souscription
-        </button>
-      </form>
-    </div>
-
-    <div id="modal-tab-contract" class="modal-tab-content">
-      <span class="contract-plan-pill">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        Formule sélectionnée : <span id="contract-plan-name">—</span>
-      </span>
-
-      <div class="contract-box">
-        <h4>1. Objet du contrat</h4>
-        <p>Le présent contrat a pour objet la mise à disposition, par <strong>NuruxData</strong>, de la plateforme de gestion scolaire au profit de l'établissement souscripteur, pour la formule choisie ci-dessus.</p>
-
-        <h4>2. Durée et renouvellement</h4>
-        <p>L'abonnement est conclu pour une durée d'un (1) mois, renouvelable automatiquement par tacite reconduction, sauf résiliation notifiée par l'établissement. L'option d'achat définitif rend l'accès à la plateforme permanent, sans reconduction mensuelle.</p>
-
-        <h4>3. Modalités de paiement</h4>
-        <p>Le montant de l'abonnement est payable mensuellement d'avance, selon le tarif en vigueur pour la formule choisie. L'installation du pack est facturée à 50 000 FCFA. L'établissement dispose d'une période d'essai d'un (1) mois pour tester le logiciel et décider de la suite ou de la résiliation. En cas de résiliation, <strong>NuruxData</strong> s'engage à rembourser la moitié des frais d'installation soit 25 000 FCFA. Tout retard de paiement peut entraîner une suspension temporaire de l'accès à la plateforme.</p>
-
-        <h4>4. Support et maintenance</h4>
-        <p><strong>NuruxData</strong> assure la maintenance technique de la plateforme et un support pour toute difficulté d'utilisation. En cas de mauvaise manipulation de la part de l'établissement, le service de dépannage sera facturé à 65 000 FCFA.</p>
-
-        <h4>5. Protection des données</h4>
-        <p>Les données des élèves et des familles restent la propriété exclusive de l'établissement. <strong>NuruxData</strong> s'engage à en assurer la confidentialité et à ne pas les transmettre à des tiers.</p>
-
-        <h4>6. Résiliation</h4>
-        <p>L'établissement peut résilier l'abonnement à tout moment, avec un préavis de 7 jours. Un export des données pourra être fourni à la fin du contrat, sur demande écrite.</p>
-
-        <h4>7. Acceptation</h4>
-        <p>La validation du formulaire de souscription vaut acceptation pleine et entière des présentes conditions par le représentant de l'établissement.</p>
-      </div>
-    </div>
-  </div>
-</div>
+<footer>© <span id="y"></span> NuruxData · Solution de gestion scolaire</footer>
 
 <script>
-/* =====================================================================
-   IMAGES — Unsplash
-   ===================================================================== */
-const U = (id, w = 1600) => `https://images.unsplash.com/${id}?w=${w}&q=80&auto=format&fit=crop`;
-
-const IMAGES = {
-  slides: [
-    {
-      img: U('photo-1523050854058-8df90110c9f1'),
-      tag: "Gestion scolaire intelligente",
-      titre: "Pilotez votre école avec haute précision",
-      texte: "NuruxData centralise dossiers élèves, scolarité et finances dans une infrastructure sécurisée, ultra-rapide et connectée en temps réel.",
-      bouton: ["Découvrir NuruxData", "#apropos"]
-    },
-    {
-      img: U('photo-1580582932707-520aed937b7b'),
-      tag: "Finances · Caisse · Reçus",
-      titre: "La gestion financière en toute sérénité",
-      texte: "Suivi des paiements, reçus instantanés, alertes impayés et tableaux de bord temps réel pour ne plus jamais perdre une recette.",
-      bouton: ["Nos fonctionnalités", "#fonctionnalites"]
-    },
-    {
-      img: U('photo-1503676260728-1c00da094a0b'),
-      tag: "Notes · Bulletins · Parents",
-      titre: "Rapprochez l'école des familles",
-      texte: "Portail parents accessible 24/7 : notes, bulletins, avis de paiement et remarques consultables en un clic.",
-      bouton: ["Tester le portail", "#parents"]
-    },
-    {
-      img: U('photo-1427504494785-3a9ca7044f45'),
-      tag: "Cloud · Hors-ligne · Sécurisé",
-      titre: "Vos données, en toute sécurité",
-      texte: "Mode 100% hors-ligne avec IndexedDB, sauvegarde JSON, synchronisation Firebase : choisissez votre niveau de sérénité.",
-      bouton: ["Voir les tarifs", "#tarifs"]
-    }
-  ],
-  about: U('photo-1497486751825-1233686db0f2', 1200),
-  eleves: U('photo-1580582932707-520aed937b7b'),
-  paiements: U('photo-1554224155-6726b3ff858f'),
-  notes: U('photo-1503676260728-1c00da094a0b'),
-  communication: U('photo-1611926653458-09294b3142bf'),
-  personnel: U('photo-1522071820081-009f0129c71c'),
-  presences: U('photo-1522202176988-66273c2fd55f')
-};
-
-const DUREE_DIAPO = 7000;
-const bgOf = v => `url('${v}')`;
-
-document.querySelectorAll('[data-img]').forEach(e => {
-  const key = e.dataset.img;
-  if (IMAGES[key]) e.style.backgroundImage = bgOf(IMAGES[key]);
-});
-
-/* --- Diaporama --- */
-const box = document.getElementById('slides'), dots = document.getElementById('dots');
-IMAGES.slides.forEach((s, k) => {
-  box.insertAdjacentHTML('beforeend', `
-    <div class="slide" role="group" aria-roledescription="slide" aria-label="${k+1} sur ${IMAGES.slides.length}">
-      <div class="bg" style="background-image:${bgOf(s.img)}"></div>
-      <div class="cap">
-        <span class="tag">${s.tag}</span>
-        <h1>${s.titre}</h1>
-        <p>${s.texte}</p>
-        <div>
-          <a class="btn purple" href="${s.bouton[1]}">${s.bouton[0]}</a>
-          <a class="btn line" href="#contact">Nous contacter</a>
-        </div>
-      </div>
-    </div>`);
-  dots.insertAdjacentHTML('beforeend', `<button role="tab" aria-label="Image ${k+1}"></button>`);
-});
-const sl = [...box.children], dt = [...dots.children];
-dots.style.setProperty('--d', DUREE_DIAPO + 'ms');
-let cur = 0, timer;
-function go(n) {
-  cur = (n + sl.length) % sl.length;
-  sl.forEach((s, k) => s.classList.toggle('on', k === cur));
-  dt.forEach((d, k) => {
-    d.classList.remove('on');
-    d.setAttribute('aria-selected', k === cur);
-    if (k === cur) { void d.offsetWidth; d.classList.add('on'); }
-  });
-  clearTimeout(timer);
-  timer = setTimeout(() => go(cur + 1), DUREE_DIAPO);
-}
-dt.forEach((d, k) => d.onclick = () => go(k));
-document.getElementById('nx').onclick = () => go(cur + 1);
-document.getElementById('pv').onclick = () => go(cur - 1);
-go(0);
-
-/* --- Header + menu --- */
-const hd = document.getElementById('hd'), nv = document.getElementById('nv'), bg = document.getElementById('bg');
-addEventListener('scroll', () => hd.classList.toggle('solid', scrollY > 60), { passive: true });
-bg.onclick = () => {
-  const open = nv.classList.toggle('open');
-  bg.setAttribute('aria-expanded', open);
-  bg.textContent = open ? '✕' : '☰';
-};
-nv.onclick = () => { nv.classList.remove('open'); bg.textContent = '☰'; bg.setAttribute('aria-expanded', 'false'); };
-
-/* --- Reveal de base --- */
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-}), { threshold: .12, rootMargin: '0px 0px -60px 0px' });
-document.querySelectorAll('.rv').forEach(e => io.observe(e));
-
-/* --- Cartes en cascade --- */
-const cardObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-    const el = entry.target;
-    const order = el.dataset.order ? parseInt(el.dataset.order) : 0;
-    const delay = order * 120;
-    setTimeout(() => el.classList.add('in'), delay);
-    cardObserver.unobserve(el);
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
-
-document.querySelectorAll('.grid3, .proj-list, .qs, .stats .wrap, .grid-pricing').forEach(group => {
-  [...group.children].forEach((child, i) => {
-    if (child.matches('.card, .proj, blockquote, .stat-item, .pricing-card')) {
-      child.dataset.order = i;
-      cardObserver.observe(child);
-    }
-  });
-});
-
-/* --- Machine à écrire --- */
-function typeEffect(el) {
-  const speed = parseInt(el.dataset.typeSpeed) || 35;
-  const delay = parseInt(el.dataset.typeDelay) || 0;
-  const originalHTML = el.innerHTML;
-  const text = el.textContent.trim();
-  el.textContent = '';
-  el.classList.add('type', 'typing');
-  el.style.visibility = 'visible';
-  let i = 0;
-  setTimeout(() => {
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        el.textContent += text.charAt(i);
-        i++;
-      } else {
-        clearInterval(interval);
-        el.classList.remove('typing');
-        el.classList.add('done');
-        setTimeout(() => {
-          el.innerHTML = originalHTML;
-          el.style.borderRight = 'none';
-        }, 350);
-      }
-    }, speed);
-  }, delay);
-}
-
-const typeObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      typeEffect(entry.target);
-      typeObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5, rootMargin: '0px 0px -60px 0px' });
-document.querySelectorAll('[data-type]').forEach(el => typeObserver.observe(el));
-
-/* --- Compteurs animés --- */
-const co = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  co.unobserve(e.target);
-  const el = e.target, end = +el.dataset.n, sfx = el.dataset.s || '', t0 = performance.now();
-  (function f(t) {
-    const p = Math.min((t - t0) / 1800, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(end * eased).toLocaleString('fr-FR') + sfx;
-    if (p < 1) requestAnimationFrame(f);
-  })(t0);
-}), { threshold: .6 });
-document.querySelectorAll('[data-n]').forEach(e => co.observe(e));
-
-/* --- Portail Parents démo --- */
-function openParentDemo(e) {
-  e.preventDefault();
-  const val = document.getElementById('matricule-input').value.trim();
-  if (val) {
-    document.getElementById('display-matricule').innerText = val.toUpperCase();
-    document.getElementById('parent-demo-dashboard').style.display = 'block';
-    loadBulletin('octobre');
-    document.getElementById('parent-demo-dashboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn-white').forEach(el => el.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  btn.classList.add('active');
-}
-
-const bulletinsData = {
-  octobre: {
-    title: "Relevé de Notes — Octobre 2025",
-    avg: "Moyenne : 15.5 / 20",
-    rows: [
-      { subject: "Mathématiques", grade: "16.5 / 20", notes: "Très bon travail. Esprit vif.", cls: "grade-good" },
-      { subject: "Français & Littérature", grade: "14.0 / 20", notes: "Bonne rédaction, continuez ainsi.", cls: "grade-good" },
-      { subject: "Physique-Chimie", grade: "15.0 / 20", notes: "Bonne compréhension des concepts.", cls: "grade-good" },
-      { subject: "Histoire-Géographie", grade: "16.5 / 20", notes: "Excellente participation en classe.", cls: "grade-good" }
-    ]
-  },
-  novembre: {
-    title: "Relevé de Notes — Novembre 2025",
-    avg: "Moyenne : 14.8 / 20",
-    rows: [
-      { subject: "Mathématiques", grade: "15.0 / 20", notes: "Résultats stables. Bon niveau.", cls: "grade-good" },
-      { subject: "Français & Littérature", grade: "13.5 / 20", notes: "Attention aux fautes d'inattention.", cls: "grade-avg" },
-      { subject: "Physique-Chimie", grade: "14.5 / 20", notes: "Travail sérieux et régulier.", cls: "grade-good" },
-      { subject: "Histoire-Géographie", grade: "16.0 / 20", notes: "Très bon devoir de synthèse.", cls: "grade-good" }
-    ]
-  },
-  decembre: {
-    title: "Bulletin du 1er Trimestre — Décembre 2025",
-    avg: "Moyenne : 16.2 / 20",
-    rows: [
-      { subject: "Mathématiques", grade: "17.5 / 20", notes: "Excellent trimestre ! Bravo.", cls: "grade-good" },
-      { subject: "Français & Littérature", grade: "15.0 / 20", notes: "En nette progression ce mois-ci.", cls: "grade-good" },
-      { subject: "Physique-Chimie", grade: "16.0 / 20", notes: "Maîtrise parfaite du programme.", cls: "grade-good" },
-      { subject: "Histoire-Géographie", grade: "16.5 / 20", notes: "Résultats solides et réguliers.", cls: "grade-good" }
-    ]
-  }
-};
-
-function loadBulletin(month, btn) {
-  if (btn) {
-    document.querySelectorAll('.month-btn-white').forEach(el => el.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  const data = bulletinsData[month];
-  document.getElementById('bulletin-title').innerText = data.title;
-  document.getElementById('bulletin-average').innerText = data.avg;
-  const tbody = document.getElementById('bulletin-rows');
-  tbody.innerHTML = data.rows.map(r => `
-    <tr>
-      <td style="font-weight:600;">${r.subject}</td>
-      <td><span class="grade-badge ${r.cls}">${r.grade}</span></td>
-      <td style="color: #64748b;">${r.notes}</td>
-    </tr>
-  `).join('');
-}
-
-/* --- Modale abonnement --- */
-let selectedPlan = "";
-
-function openSubscriptionModal(planName) {
-  selectedPlan = planName;
-  document.getElementById('selected-plan-name').innerText = planName;
-  document.getElementById('contract-plan-name').innerText = planName;
-  switchModalTab('modal-tab-form', document.querySelector('.modal-tab-btn'));
-  document.getElementById('subscription-modal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeSubscriptionModal() {
-  document.getElementById('subscription-modal').classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function switchModalTab(tabId, btn) {
-  document.querySelectorAll('.modal-tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.modal-tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  if (btn) btn.classList.add('active');
-}
-
-function switchModalTabByLabel(e) {
-  e.preventDefault();
-  const contractBtn = document.querySelectorAll('.modal-tab-btn')[1];
-  switchModalTab('modal-tab-contract', contractBtn);
-}
-
-async function submitSubscription(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  btn.innerText = "Enregistrement en cours...";
-  btn.disabled = true;
-
-  const subscriptionData = {
-    nom: document.getElementById('sub-nom').value.trim(),
-    prenom: document.getElementById('sub-prenom').value.trim(),
-    etablissement: document.getElementById('sub-etablissement').value.trim(),
-    telephone: document.getElementById('sub-telephone').value.trim(),
-    adresse: document.getElementById('sub-adresse').value.trim(),
-    version_choisie: selectedPlan,
-    date_souscription: window.serverTimestamp()
-  };
-
-  try {
-    if (window.db && window.addDoc && window.collection) {
-      await window.addDoc(window.collection(window.db, "abonnements_nuruxdata"), subscriptionData);
-      alert("Félicitations ! Votre demande pour la version " + selectedPlan + " a été transmise avec succès. Notre équipe prendra contact avec vous.");
-      document.getElementById('subscription-form').reset();
-      closeSubscriptionModal();
-    } else {
-      alert("Veuillez d'abord configurer vos identifiants Firebase dans le code source HTML.");
-    }
-  } catch (error) {
-    console.error("Erreur Firebase :", error);
-    alert("Une erreur s'est produite lors de la transmission. Vérifiez votre connexion.");
-  } finally {
-    btn.innerText = "Valider la Souscription";
-    btn.disabled = false;
-  }
-}
-
-document.getElementById('subscription-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'subscription-modal') closeSubscriptionModal();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeSubscriptionModal();
-});
-
-document.getElementById('fm').onsubmit = e => {
-  e.preventDefault();
-  const ok = document.getElementById('ok');
-  ok.style.display = 'block';
-  e.target.reset();
-  setTimeout(() => { ok.style.display = 'none'; }, 6000);
-};
+const feats=[["Gestion des élèves","Inscription et fiche complète de chaque élève, informations du parent ou tuteur, statut actif/inactif, recherche, modification et suppression des dossiers."],["Classes et matières","Création des classes par niveau (Préscolaire, Primaire, Collège, Lycée), gestion des matières, affectation des enseignants et organisation de la structure pédagogique."],["Notes et bulletins","Saisie des notes, devoirs et appréciations, calcul des moyennes, génération des bulletins scolaires, bulletins annuels et publication des résultats."],["Présences et discipline","Pointage des présences et absences des élèves et du personnel, registre de présence, fiches individuelles, remarques, convocations et suivi des retards."],["Scolarité et paiements","Configuration des frais (inscription, scolarité mensuelle, examens, etc.), encaissement des paiements, suivi des impayés, reçus de paiement, avis de paiement et historique des règlements."],["Gestion du personnel","Fiches du personnel, contrats de travail, fonctions, salaires, versements, annulations et suivi des présences du personnel."],["Trésorerie de l’école","Suivi des recettes et dépenses, caisse, retraits, achats de fournitures, factures et journal des opérations pour une meilleure maîtrise financière."],["Espace parents et communication","Site des parents, notifications, informations sur les réunions, sorties scolaires, règlement intérieur et suivi de la scolarité de l’enfant."],["Cartes scolaires et documents","Génération de cartes scolaires, fiches de renseignements, reçus familiaux, fiches de présence et documents administratifs en PDF."],["Sécurité et sauvegarde","Comptes utilisateurs avec rôles (Direction, Secrétaire, Enseignant), sauvegarde et restauration des données, export/import complet et fonctionnement local ou en ligne."],["Paramétrage flexible","Personnalisation de l’école (logo, devise, année scolaire), types de frais, champs personnalisés, barèmes d’appréciation et configuration du stockage cloud."]];
+const shots=[["Tableau de bord","img/tableau-de-bord.png","indicateurs clés : élèves actifs, personnel, encaissements, impayés et recette annuelle."],["Effectifs","img/effectifs.png","répartition garçons/filles de chaque classe et derniers paiements enregistrés."],["Élèves","img/eleves.png","liste avec recherche et filtres ; fiche PDF, carte scolaire et liste des reçus en un clic."],["Fiche élève","img/fiche-eleve.png","scolarité réglée, reste dû, classe, coordonnées du parent ou tuteur et informations d’inscription."],["Finances","img/finances.png","solde de caisse, total encaissé, retraits, salaires versés et taux d’encaissement mensuel."]];
+const adv=["Centralise les informations des élèves, parents, enseignants et finances.","Réduit les erreurs liées aux registres papier et aux calculs manuels.","Accélère l’encaissement de la scolarité et le suivi des impayés.","Facilite la production des bulletins, reçus et documents officiels.","Améliore le suivi de la présence des élèves et du personnel.","Protège les données grâce aux sauvegardes et aux accès par rôle."];
+const $=s=>document.querySelector(s);
+$('#feats').innerHTML=feats.map((f,i)=>`<div class="card rv" style="--d:${(i%3)*.1}s"><div class="n">${String(i+1).padStart(2,'0')}</div><h3>${f[0]}</h3><p>${f[1]}</p></div>`).join('');
+$('#adv').innerHTML=adv.map((a,i)=>`<div class="rv" style="--d:${(i%2)*.12}s"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>${a}</span></div>`).join('');
+$('#tabs').innerHTML=shots.map((s,i)=>`<button class="tab${i?'':' on'}" data-i="${i}">${s[0]}</button>`).join('');
+$('#slides').innerHTML=shots.map((s,i)=>`<img src="${s[1]}" alt="${s[0]}" class="${i?'':'on'}" loading="lazy">`).join('');
+let cur=0,auto;
+function show(i){cur=i;document.querySelectorAll('.tab').forEach((t,k)=>t.classList.toggle('on',k==i));document.querySelectorAll('#slides img').forEach((m,k)=>m.classList.toggle('on',k==i));const c=$('#cap');c.style.opacity=0;setTimeout(()=>{c.innerHTML=`<b>${shots[i][0]}</b> — ${shots[i][2]}`;c.style.opacity=1},200)}
+function start(){clearInterval(auto);auto=setInterval(()=>show((cur+1)%shots.length),5500)}
+$('#tabs').onclick=e=>{const b=e.target.closest('.tab');if(b){show(+b.dataset.i);start()}};
+show(0);start();
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// header + progress
+const hd=$('#hd'),pg=$('#prog');
+addEventListener('scroll',()=>{hd.classList.toggle('s',scrollY>40);pg.style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%'},{passive:true});
+// typing
+const words=["élèves","notes","paiements","présences","personnel","bulletins"];let w=0,c=0,del=false;const t=$('#type');
+(function tick(){const word=words[w];t.textContent=word.slice(0,c);if(!del&&c==word.length){del=true;return setTimeout(tick,1600)}if(del&&c==0){del=false;w=(w+1)%words.length}c+=del?-1:1;setTimeout(tick,del?45:90)})();
+// tilt
+const tl=$('#tilt');if(matchMedia('(hover:hover)').matches)tl.parentElement.addEventListener('mousemove',e=>{const r=tl.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5;tl.style.transform=`rotateX(${4-0}deg) rotateY(${x*6}deg)`});
+tl.parentElement.addEventListener('mouseleave',()=>tl.style.transform='');
+$('#y').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>

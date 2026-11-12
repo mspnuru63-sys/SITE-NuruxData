@@ -112,23 +112,25 @@ footer{background:var(--navy);color:#aeb6c8;text-align:center;padding:28px 0;fon
 /* abonnement */
 .sub-sec{background:var(--navy);color:#fff}
 .sub-sec h2{color:#fff}.sub-sec .lead{color:#c3cadb}
-.sub-box{max-width:820px;margin:36px auto 0;background:#fff;color:var(--text);border-radius:18px;padding:34px;box-shadow:0 24px 60px rgba(0,0,0,.35);border-top:4px solid var(--gold)}
+.sub-box{max-width:820px;margin:36px auto 0;background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:34px 30px}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .fg .full{grid-column:1/-1}
-.fg label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin-bottom:6px}
-.fg label i{color:var(--gold);font-style:normal}
-.fg input,.fg textarea{width:100%;font:inherit;font-size:.97rem;color:var(--text);background:var(--cream);border:1.5px solid var(--line);border-radius:10px;padding:.8rem 1rem;transition:border-color .2s,box-shadow .2s,background .2s}
+.fg label{display:block;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.fg label i{color:var(--gold-l);font-style:normal}
+.fg input,.fg textarea{width:100%;font:inherit;font-size:.97rem;color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:.8rem 1rem;transition:border-color .2s,box-shadow .2s,background .2s}
 .fg textarea{resize:vertical;min-height:120px}
-.fg input:focus,.fg textarea:focus{outline:0;border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(201,154,46,.18)}
-.fg input.err{border-color:#d9534f;background:#fff5f5}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.4)}
+.fg input:focus,.fg textarea:focus{outline:0;border-color:var(--gold);background:rgba(255,255,255,.08);box-shadow:0 0 0 3px rgba(201,154,46,.25)}
+.fg input:-webkit-autofill{-webkit-text-fill-color:#fff;transition:background-color 9999s}
+.fg input.err{border-color:#ff6b6b;background:rgba(255,107,107,.08)}
 .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 .btn-wa{background:#25d366;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.35)}
 .btn-wa:hover{background:#1ebe5b}
-.btn-mail{background:var(--navy);color:#fff}
-.btn-mail:hover{background:var(--navy2)}
+.btn-mail{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.btn-mail:hover{background:rgba(255,255,255,.1)}
 .btn svg{width:20px;height:20px;fill:currentColor;flex:none}
 #fmsg{margin-top:16px;font-size:.92rem;font-weight:600;min-height:1.2em}
-#fmsg.ko{color:#d9534f}#fmsg.ok{color:#1e8e4e}
+#fmsg.ko{color:#ff8a8a}#fmsg.ok{color:#6ee7a0}
 /* whatsapp flottant */
 .wa-float{position:fixed;right:22px;bottom:22px;z-index:300;display:flex;align-items:center;gap:10px}
 .wa-float .lbl{background:#fff;color:var(--navy);font-weight:700;font-size:.85rem;padding:.5rem .9rem;border-radius:99px;box-shadow:0 6px 20px rgba(0,0,0,.18);opacity:0;transform:translateX(10px);transition:.3s;pointer-events:none;white-space:nowrap}
@@ -191,7 +193,7 @@ h2+.bar.rv{opacity:1;transform:scaleX(0)}h2+.bar.rv.in{transform:scaleX(1)}
   <p class="lead rv">NuruxData est proposée selon deux formules : une installation avec abonnement mensuel, ou un achat définitif de la licence payable en trois tranches.</p>
   <div class="plans">
     <div class="plan rv"><small>INSTALLATION + ABONNEMENT</small><div class="p">35 000 FCFA</div><div class="s">+ 50 000 FCFA / mois</div><ul><li>Installation initiale de l’application : 35 000 FCFA</li><li>Abonnement mensuel : 50 000 FCFA par mois</li></ul></div>
-    <div class="plan hl rv" style="--d:.15s"><small>ACHAT DÉFINITIF</small><div class="p">800 000 FCFA</div><div class="s">Licence définitive de la solution ( négociable )</div><ul><li>Achat définitif de la solution</li><li>Payable en trois tranches <br> (50% - 30% - 20%)</li></ul></div>
+    <div class="plan hl rv" style="--d:.15s"><small>ACHAT DÉFINITIF</small><div class="p">800 000 FCFA</div><div class="s">Licence définitive de la solution </div><ul><li>Achat définitif de la solution (négociable)</li><li>Payable en trois tranches <br> (50% 30% 20%) </li></ul></div>
   </div>
 </div></section>
 
